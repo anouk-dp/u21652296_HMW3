@@ -1,0 +1,59 @@
+﻿@model u21652296_HMW3.Models.AuthorTypesBorrowViewModel
+@{
+    ViewBag.Title = "Contact";
+}
+<main aria-labelledby="title">
+    <h2>Authors</h2>
+    <table class="table">
+        <tr>
+            <th>Author ID</th>
+            <th>Author Name</th>
+        </tr>
+        @foreach (var author in Model.authors)
+        {
+            <tr>
+                <td>@author.authorId</td>
+                <td>@author.name</td>
+            </tr>
+        }
+    </table>
+
+    <h2>Types</h2>
+    <table class="table">
+        <tr>
+            <th>Type ID</th>
+            <th>Type Name</th>
+        </tr>
+        @foreach (var type in Model.types)
+        {
+            <tr>
+                <td>@type.typeId</td>
+                <td>@type.name</td>
+            </tr>
+        }
+    </table>
+
+    <h2>Borrows</h2>
+    <table class="table">
+        <tr>
+            <th>Borrow ID</th>
+            <th>Student ID</th>
+            <th>Brought Date</th>
+            <th>Taken Date</th>
+            <th>Book</th>
+        </tr>
+        @foreach (var borrow in Model.borrows)
+        {
+            <tr>
+                <td>@borrow.borrowId</td>
+                <td>@borrow.bookId</td>
+                <td>@borrow.bookName</td>
+                <td>@borrow.studentId</td>
+                <td>@borrow.broughtDate</td>
+                <td>@borrow.takenDate</td>
+
+            </tr>
+        }
+    </table>
+
+</main>

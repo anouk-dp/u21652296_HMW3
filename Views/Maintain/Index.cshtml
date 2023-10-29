@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model u21652296_HMW3.Models.AuthorTypesBorrowViewModel
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<main>
+    <section class="d-flex vw-100">
+        <div class="w-50">
+            @*Authors*@
+            <h2>Authors</h2>
+            @Html.ActionLink("Create", "Create", "authors")
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.authors)
+                {
+                    <tr>
+                        <td>@item.authorId</td>
+                        <td>@item.name</td>
+                        <td>@item.surname</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "authors", new { id = item.authorId } ,null)</td>
+                        <td>@Html.ActionLink("Delete", "Delete", "authors", new { id = item.authorId }, null)</td>
+                    </tr>
+                }
+            </table>
+            @Html.PagedListPager(Model.authors, authorPage => Url.Action("Index", new { authorPage }))
+        </div>
+        <div>
+            @*Types*@
+            <h2>Types</h2>
+            @Html.ActionLink("Create", "Create", "types")
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.types)
+                {
+                    <tr>
+                        <td>@item.typeId</td>
+                        <td>@item.name</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "types", new { id = item.typeId }, null)</td>
+                        <td>@Html.ActionLink("Delete", "Delete", "types", new { id = item.typeId }, null)</td>
+                    </tr>
+                }
+            </table>
+            @Html.PagedListPager(Model.types, typePage => Url.Action("Index", new { typePage }))
+        </div>
+    </section>
+    <section>
+        <h2>Borrows</h2>
+        @Html.ActionLink("Create", "Create", "borrows")
+        <table class="w-100">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Book Name</th>
+                    <th>Date Taken</th>
+                    <th>Date Brought</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.borrows)
+            {
+                <tr>
+                    <td>@item.bookId</td>
+                    <td>@item.studentName</td>
+                    <td>@item.bookName</td>
+                    <td>@item.takenDate</td>
+                    <td>@item.broughtDate</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "borrows", new { id = item.borrowId }, null)</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "borrows", new { id = item.borrowId }, null)</td>
+                </tr>
+            }
+        </table>
+        @Html.PagedListPager(Model.borrows, borrowPage => Url.Action("Index", new { borrowPage }))
+    </section>
+</main>
+

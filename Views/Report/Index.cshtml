@@ -1,0 +1,54 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+@model u21652296_HMW3.Models.StudentBookViewModelAgain
+@{
+    ViewBag.Title = "Index";
+
+    int availableBooksCount = 0; // Initialize the count
+    int unavailableBooksCount = 0;
+
+    if (Model.Books != null)
+    {
+
+        availableBooksCount = Model.Books.Count(book => book.Availibity == "Available");
+        unavailableBooksCount = Model.Books.Count(book => book.Availibity == "Out");
+    }
+
+    ViewBag.AvailableBooksCount = availableBooksCount;
+    ViewBag.UnavailableBooksCount = unavailableBooksCount;
+}
+
+<h2>Report</h2>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+    //const { createCanvas } = require('canvas');
+    //const Chart = require('chart.js');
+    //const fs = require('fs');
+
+    //const canvas = createCanvas(600, 400);
+    //const ctx = canvas.getContext('2d');
+    var xValues = ["Available", "Out"];
+    var yValues = [@ViewBag.AvailableBooksCount, @ViewBag.UnavailableBooksCount];
+    var barColors = ["#b91d47", "#00aba9"];
+
+    new Chart("myChart", {
+        type: "pie",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Books Currently In Library"
+            }
+        }
+    });
+    //const buffer = canvas.toBuffer('image/png');
+    //fs.writeFileSync('chart.png', buffer);
+
+</script>
+<a href="@Url.Action("GenerateReport")" class="btn btn-primary">Generate and Download Report</a>

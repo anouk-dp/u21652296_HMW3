@@ -1,0 +1,105 @@
+﻿
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+@model u21652296_HMW3.Models.StudentBookViewModel
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{ 
+    ViewBag.Title = "Home";
+}
+<main class="d-flex gap-3">
+    <div>
+
+        <h2>Students</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudentModal">
+            Create Student
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                 
+                </tr>
+            </thead>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.studentId</td>
+                    <td>@student.name</td>
+                    <td>@student.surname</td>
+
+                </tr>
+            }
+        </table>
+        @Html.PagedListPager(Model.Students, studentPage => Url.Action("Index", new {studentPage}))
+    </div>
+    <div>
+
+        <h2>Books</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createBookModal">
+            Create Book
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>Page Count</th>
+                    <th>Point</th>
+                    <th>Type</th>
+                    <th>Author</th>
+
+                    <th>Status</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.Books)
+            {
+                <tr>
+                    <td>@item.BookId</td>
+                    <td>@item.Name</td>
+                    <td>@item.PageCount</td>
+                    <td>@item.Point</td>
+                    <td>@item.Type</td>
+                    <td>@item.Author</td>
+                    <td>@item.Availibity</td>
+
+
+
+
+                </tr>
+            }
+        </table>
+        @Html.PagedListPager(Model.Books, booksPage => Url.Action("Index", new { booksPage }))
+    </div>
+</main>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+</div>
+
+@*Modal For Create a book*@
+<div class="modal fade" id="createBookModal" tabindex="-1" role="dialog" aria-labelledby="Create Book" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @Html.Action("CreateBookModal", "books")
+        </div>
+    </div>
+</div>
+
+@*Modal For Create a Student*@
+<div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="Create Student" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @Html.Action("CreateStudentModal", "students")
+        </div>
+    </div>
+</div>
+
+
+
+
